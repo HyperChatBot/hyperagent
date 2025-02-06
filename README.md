@@ -1,6 +1,6 @@
 # Hyper Agent
 
-Advanced AI agent using your own data and API.
+Advanced AI agent using your own knowledge bases and APIs.
 
 ![Hyper Agent](./screenshots/chatbot.jpg)
 
