@@ -17,7 +17,7 @@ Advanced AI agent using your own knowledge bases and APIs.
 - GetInformationFromKnowledgeBase
 - GetWeather
 
-## AI Agent
+## AI Agents
 
 - RAG Chatbot
 - AI Mail
