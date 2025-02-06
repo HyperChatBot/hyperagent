@@ -1,5 +1,5 @@
 import Markdown from '@/components/markdown'
-import { findRelevantContent } from '@/lib/embeddings/posts'
+import { findRelevantContent } from '@/lib/document-to-embedding'
 import { CallingToolProps } from '@/types'
 import { tool } from 'ai'
 import { FC } from 'react'

@@ -50,18 +50,6 @@ export default function Chat() {
                       const CallingTool =
                         callingToolsRenders[toolInvocation.toolName]
 
-                      const Render = () => (
-                        <>
-                          <p className="font-bold">
-                            Calling Tool - {toolInvocation.toolName}:
-                          </p>
-                          <CallingTool
-                            key={toolCallId}
-                            toolInvocation={toolInvocation}
-                          />
-                        </>
-                      )
-
                       return (
                         <Card key={message.id} className="my-4 p-4">
                           <p className="font-bold">
