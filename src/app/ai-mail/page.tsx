@@ -24,7 +24,7 @@ export default function AiMail() {
   }, [])
 
   return (
-    <div className="stretch mx-auto flex w-full max-w-5xl flex-col py-24">
+    <div>
       {messages.map((message, idx) => (
         <Card key={idx} className="mb-4 p-4">
           {message}
