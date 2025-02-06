@@ -58,10 +58,6 @@ Please make sure to read the [Issue Reporting Checklist](./.github/ISSUE_TEMPLAT
 
 If you have any questions or feedback about Hyper Agent, please visit our [official discussion forum](https://github.com/orgs/HyperChatBot/discussions/71) to start a conversation with our team or other users. We are committed to making Hyper Agent the best possible chat application, and your feedback plays a crucial role in achieving this goal.
 
-## Thanks
-
-The UI design is inspired by [Agent-Web-App-UI-Kit](https://www.figma.com/community/file/1167012734150108159/Agent-Web-App-UI-Kit), Thank you [Figma UI Free](https://www.figma.com/@figmauifree)!
-
 ## License
 
 Hyper Agent is licensed under the terms of the [MIT licensed](https://opensource.org/licenses/MIT).
