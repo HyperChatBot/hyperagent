@@ -54,7 +54,7 @@
     "@eslint/eslintrc": "^3",
     "@types/imapflow": "^1.0.19",
     "@types/mailparser": "^3.4.5",
-    "@types/node": "^20",
+    "@types/node": "^22",
     "@types/pg": "^8.11.11",
     "@types/react": "^19",
     "@types/react-dom": "^19",
