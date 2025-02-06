@@ -75,8 +75,8 @@ importers:
         specifier: ^11.11.1
         version: 11.11.1
       imapflow:
-        specifier: ^1.0.179
-        version: 1.0.179
+        specifier: ^1.0.181
+        version: 1.0.181
       immer:
         specifier: ^10.1.1
         version: 10.1.1
@@ -2812,8 +2812,8 @@ packages:
     resolution: {integrity: sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==}
     engines: {node: '>= 4'}
 
-  imapflow@1.0.179:
-    resolution: {integrity: sha512-I2MfddxWmPltchxpPguoJNnuDwKZIWrGeySZq1CgB0gkEWHbdZ+nRRcQ9Z23hjw2lJyF9/WoRSN76kcwW34Jjg==}
+  imapflow@1.0.181:
+    resolution: {integrity: sha512-WrKRU1rffzWr/oZI6/jS5IgmdczSzRjpE0jvk6LOGlp+HJRXBnl3CzwHkJXCfq/1M4EsrVQyy+1WiQYuiIkRiw==}
 
   immer@10.1.1:
     resolution: {integrity: sha512-s2MPrmjovJcoMaHtx6K11Ra7oD05NT97w1IC5zpMkT6Atjr7H8LjaDd81iIxUYpMKSRRNMJE703M1Fhr/TctHw==}
@@ -6494,7 +6494,7 @@ snapshots:
 
   ignore@5.3.2: {}
 
-  imapflow@1.0.179:
+  imapflow@1.0.181:
     dependencies:
       encoding-japanese: 2.2.0
       iconv-lite: 0.6.3
