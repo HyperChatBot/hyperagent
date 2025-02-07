@@ -22,10 +22,60 @@ Advanced AI agent using your own knowledge bases and APIs.
 - RAG Chatbot
 - AI Mail
 
-## Environment Variables
+## To start developing Hyper Agent
+
+### Setting up pgvector and Importing Sample Data
+
+> This guide outlines the steps to set up a pgvector Docker container and import sample data into your PostgreSQL database.
+
+1. **Start the pgvector container**: Navigate to the root directory of your project and run:
+
+    ```bash
+    docker compose up -d
+    ```
+
+    This command boots a Docker container running [pgvector](https://github.com/pgvector/pgvector).
+
+2. **Access the container's terminal**:  Execute the following command, replacing `<CONTAINER_ID_OF_PGVECTOR_DB>` with the actual ID of your pgvector container:
+
+    ```bash
+    docker exec -it <CONTAINER_ID_OF_PGVECTOR_DB> bash
+    ```
+
+    You can find the container ID using `docker ps`.
+
+3. **Connect to the blog database**: Inside the container's terminal, connect to your database using psql:
+
+    ```bash
+    psql -U yanceyofficial -h localhost blog
+    ```
+
+4. **Enable the vector extension**:  Run the following SQL command to enable vector support in your database:
+
+    ```sql
+    CREATE EXTENSION vector;
+    ```
+
+5. Create database tables: In your project's root directory, apply database migrations using Drizzle Kit:
+
+    ```bash
+    npx drizzle-kit push
+    ```
+
+    This command creates the posts and embeddings tables within the blog database.
+
+6. **Import sample data**: Return to the container's terminal and execute the following commands to import data from the provided CSV files:
+
+    ```sql
+    COPY posts FROM '/sample-data/posts.csv' WITH (FORMAT CSV, HEADER, DELIMITER ',', QUOTE '"', ESCAPE '\');
+
+    COPY embeddings FROM '/sample-data/embeddings.csv' WITH (FORMAT CSV, HEADER, DELIMITER ',', QUOTE '"', ESCAPE '\');
+    ```
+
+### Environment Variables
 
 ```bash
-DATABASE_URL=<YOUR_POSTGRES_DATABASE_URL>
+DATABASE_URL=postgresql://tennoheika:jp8964@localhost:5432/blog
 
 EMAIL_ADDRESS=<YOUR_GMAIL_ADDRESS>
 EMAIL_PASSWORD=<YOUR_GMAIL_PASSWORD>
