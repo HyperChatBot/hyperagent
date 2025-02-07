@@ -56,7 +56,7 @@ Advanced AI agent using your own knowledge bases and APIs.
     CREATE EXTENSION vector;
     ```
 
-5. Create database tables: In your project's root directory, apply database migrations using Drizzle Kit:
+5. **Create database tables**: In your project's root directory, apply database migrations using Drizzle Kit:
 
     ```bash
     npx drizzle-kit push
