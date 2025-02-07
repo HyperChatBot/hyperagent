@@ -47,7 +47,7 @@ Advanced AI agent using your own knowledge bases and APIs.
 3. **Connect to the blog database**: Inside the container's terminal, connect to your database using psql:
 
     ```bash
-    psql -U yanceyofficial -h localhost blog
+    psql -U tennoheika -h localhost blog
     ```
 
 4. **Enable the vector extension**:  Run the following SQL command to enable vector support in your database:
@@ -75,7 +75,7 @@ Advanced AI agent using your own knowledge bases and APIs.
 ### Environment Variables
 
 ```bash
-DATABASE_URL=postgresql://tennoheika:jp8964@localhost:5432/blog
+DATABASE_URL=postgresql://tennoheika:jinping8964@localhost:5432/blog
 
 EMAIL_ADDRESS=<YOUR_GMAIL_ADDRESS>
 EMAIL_PASSWORD=<YOUR_GMAIL_PASSWORD>
