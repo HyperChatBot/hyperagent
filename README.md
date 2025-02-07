@@ -91,22 +91,6 @@ Advanced AI agent using your own knowledge bases and APIs.
     COPY embeddings FROM '/sample-data/embeddings.csv' WITH (FORMAT CSV, HEADER, DELIMITER ',', QUOTE '"', ESCAPE '\');
     ```
 
-### Environment Variables
-
-```bash
-DATABASE_URL=postgresql://tennoheika:jinping8964@localhost:5432/blog
-
-EMAIL_ADDRESS=<YOUR_GMAIL_ADDRESS>
-EMAIL_PASSWORD=<YOUR_GMAIL_PASSWORD>
-
-EXCHANGE_RATE_API_KEY=<YOUR_EXCHANGE_RATE_API_KEY> # https://openexchangerates.org/account/app-ids
-
-OPENAI_API_KEY=<YOUR_OPENAI_API_BASE_URL>
-OPENAI_API_BASE_URL=<YOUR_OPENAI_API_BASE_URL>
-
-FIGMA_ACCESS_TOKEN=<YOUR_FIGMA_ACCESS_TOKEN>
-```
-
 ## Contributing
 
 The main purpose of this repository is to continue to evolve Hyper Agent, making it faster and easier to use. Development of Hyper Agent happens in the open on GitHub, and we are grateful to the community for contributing bugfixes and improvements. Read below to learn how you can take part in improving Hyper Agent.
