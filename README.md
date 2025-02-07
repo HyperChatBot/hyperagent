@@ -1,6 +1,6 @@
 # Hyper Agent
 
-Advanced AI agent using your own knowledge bases and APIs.
+An advanced AI agent that utilizes your own knowledge bases and APIs.
 
 ![Hyper Agent](./screenshots/chatbot.jpg)
 
