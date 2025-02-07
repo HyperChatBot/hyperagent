@@ -44,13 +44,13 @@ Advanced AI agent using your own knowledge bases and APIs.
 
     You can find the container ID using `docker ps`.
 
-3. **Connect to the blog database**: Inside the container's terminal, connect to your database using psql:
+3. **Connect to the `blog` database**: Inside the container's terminal, connect to your database using `psql`:
 
     ```bash
     psql -U tennoheika -h localhost blog
     ```
 
-4. **Enable the vector extension**:  Run the following SQL command to enable vector support in your database:
+4. **Enable the `vector` extension**:  Run the following SQL command to enable vector support in your database:
 
     ```sql
     CREATE EXTENSION vector;
@@ -62,7 +62,7 @@ Advanced AI agent using your own knowledge bases and APIs.
     npx drizzle-kit push
     ```
 
-    This command creates the posts and embeddings tables within the blog database.
+    This command creates the `posts` and `embeddings` tables within the `blog` database.
 
 6. **Import sample data**: Return to the container's terminal and execute the following commands to import data from the provided CSV files:
 
