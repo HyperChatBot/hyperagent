@@ -32,7 +32,7 @@ An advanced AI agent that utilizes your own knowledge bases and APIs.
     EMAIL_ADDRESS=<YOUR_GMAIL_ADDRESS>
     EMAIL_PASSWORD=<YOUR_GMAIL_PASSWORD>
 
-    EXCHANGE_RATE_API_KEY=<YOUR_EXCHANGE_RATE_API_KEY> # <https://openexchangerates.org/account/app-ids>
+    EXCHANGE_RATE_API_KEY=<YOUR_EXCHANGE_RATE_API_KEY> # https://openexchangerates.org/account/app-ids
 
     OPENAI_API_KEY=<YOUR_OPENAI_API_BASE_URL>
     OPENAI_API_BASE_URL=<YOUR_OPENAI_API_BASE_URL>
