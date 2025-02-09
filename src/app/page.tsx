@@ -35,84 +35,91 @@ export default function Chat() {
   }
 
   return (
-    <section>
-      <div className="h-[calc(100vh-7.25rem)] overflow-y-scroll">
-        {messages.map((message) => {
-          if (message.role === 'user')
-            return (
-              <Card key={message.id} className="mb-4 p-4">
-                <p className="font-bold">User: </p>
-                <div>{message.content}</div>
-              </Card>
-            )
+    <section className="flex h-[calc(100vh-4rem)] flex-col overflow-auto transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-[calc(100vh-3rem)]">
+      <div className="flex flex-1 justify-center overflow-scroll">
+        <div className="h-full">
+          <div className="flex w-[768px] flex-col md:w-32 lg:w-48">
+            {messages.map((message) => {
+              if (message.role === 'user')
+                return (
+                  <div key={message.id} className="mb-8 flex justify-end">
+                    <div className="max-w-md rounded-3xl bg-secondary p-4">
+                      {message.content}
+                    </div>
+                  </div>
+                )
 
-          if (message.role === 'assistant')
-            return (
-              <Card key={message.id} className="mb-4 p-4">
-                <>
-                  <p className="font-bold">AI: </p>
-                  <Markdown src={message.content} />
-                </>
+              if (message.role === 'assistant')
+                return (
+                  <div key={message.id} className="my-4">
+                    <Markdown src={message.content} />
 
-                {Array.isArray(message.toolInvocations) &&
-                message.toolInvocations.length > 0 ? (
-                  <>
-                    {message.toolInvocations.map(
-                      (toolInvocation: ToolInvocation) => {
-                        const toolCallId = toolInvocation.toolCallId
-                        const addResult = (result: string) =>
-                          addToolResult({ toolCallId, result })
-                        const CallingTool =
-                          callingToolsRenders[toolInvocation.toolName]
+                    {Array.isArray(message.toolInvocations) &&
+                    message.toolInvocations.length > 0 ? (
+                      <>
+                        {message.toolInvocations.map(
+                          (toolInvocation: ToolInvocation) => {
+                            const toolCallId = toolInvocation.toolCallId
+                            const addResult = (result: string) =>
+                              addToolResult({ toolCallId, result })
+                            const CallingTool =
+                              callingToolsRenders[toolInvocation.toolName]
 
-                        return (
-                          <Card key={message.id} className="my-4 p-4">
-                            <p className="font-bold">
-                              Calling Tool - {toolInvocation.toolName}:
-                            </p>
-                            <CallingTool
-                              key={toolCallId}
-                              toolInvocation={toolInvocation}
-                            />
-                          </Card>
-                        )
-                      }
-                    )}
-                  </>
-                ) : null}
-              </Card>
-            )
-        })}
+                            return (
+                              <Card
+                                key={message.id}
+                                className="my-4 overflow-x-scroll p-4"
+                              >
+                                <p className="font-bold">
+                                  Calling Tool - {toolInvocation.toolName}:
+                                </p>
+                                <CallingTool
+                                  key={toolCallId}
+                                  toolInvocation={toolInvocation}
+                                />
+                              </Card>
+                            )
+                          }
+                        )}
+                      </>
+                    ) : null}
+                  </div>
+                )
+            })}
 
-        {error && (
-          <>
-            <div>An error occurred.</div>
-            <Button type="button" onClick={() => reload()}>
-              Retry
-            </Button>
-          </>
-        )}
+            {error && (
+              <>
+                <div>An error occurred.</div>
+                <Button type="button" onClick={() => reload()}>
+                  Retry
+                </Button>
+              </>
+            )}
+          </div>
+        </div>
       </div>
       <form
         onSubmit={handleSubmit}
-        className="flex w-full items-center justify-center gap-4 bg-[hsl(var(--background))] dark:bg-[hsl(var(--background))]"
+        className="flex w-full justify-center bg-background py-4 dark:bg-background"
       >
-        <div className="relative h-5 w-5">
-          <input
-            type="file"
-            accept="application/pdf"
-            className="absolute left-0 top-0 h-5 w-5 opacity-0"
-            onChange={uploadPDF}
+        <div className="flex w-[768px] items-center gap-4">
+          <div className="relative h-5 w-5">
+            <input
+              type="file"
+              accept="application/pdf"
+              className="absolute left-0 top-0 h-5 w-5 opacity-0"
+              onChange={uploadPDF}
+            />
+            <UploadIcon width={16} height={16} />
+          </div>
+          <Input
+            value={input}
+            placeholder="Say something..."
+            onChange={handleInputChange}
+            className="w-full"
+            disabled={error != null || isLoading}
           />
-          <UploadIcon width={20} height={20} />
         </div>
-        <Input
-          value={input}
-          placeholder="Say something..."
-          onChange={handleInputChange}
-          className="w-3/4"
-          disabled={error != null || isLoading}
-        />
       </form>
     </section>
   )

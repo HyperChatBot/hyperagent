@@ -1,7 +1,7 @@
 'use client'
 
 import hljs from 'highlight.js'
-import 'highlight.js/styles/atom-one-dark.css'
+import '@/assets/css/markdown-code.css'
 import { Marked, Renderer, Tokens } from 'marked'
 import markedKatex from 'marked-katex-extension'
 import { FC, memo, useCallback } from 'react'
@@ -22,11 +22,11 @@ const Markdown: FC<Props> = ({ src }) => {
           ? hljs.highlight(text, { language: language }).value
           : hljs.highlightAuto(text).value
 
-      return `<pre class="-mx-4 my-3 overflow-x-scroll text-xs last:my-0"><code class="hljs ${language}">${highlighted}</code></pre>`
+      return `<pre class="hljs my-4 p-4 rounded-md border border-border overflow-x-scroll text-xs last:my-0"><code class="${language}">${highlighted}</code></pre>`
     }
 
     renderer.codespan = ({ text }: Tokens.Codespan) =>
-      `<code class="p-0.5 bg-slate-300 rounded-md dark:bg-slate-600">${text}</code>`
+      `<code class="px-0.5 py-[0.0625rem] bg-border rounded-md ">${text}</code>`
 
     renderer.image = ({ text, href }: Tokens.Image) => {
       return `<img src="${href}" alt="${text}" class="mb-3" loading="lazy" />`
