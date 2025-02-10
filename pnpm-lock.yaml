@@ -90,11 +90,11 @@ importers:
         specifier: ^3.7.2
         version: 3.7.2
       marked:
-        specifier: ^15.0.6
-        version: 15.0.6
+        specifier: ^15.0.7
+        version: 15.0.7
       marked-katex-extension:
         specifier: ^5.1.4
-        version: 5.1.4(katex@0.16.21)(marked@15.0.6)
+        version: 5.1.4(katex@0.16.21)(marked@15.0.7)
       next:
         specifier: 15.1.6
         version: 15.1.6(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -3111,8 +3111,8 @@ packages:
       katex: '>=0.16 <0.17'
       marked: '>=4 <16'
 
-  marked@15.0.6:
-    resolution: {integrity: sha512-Y07CUOE+HQXbVDCGl3LXggqJDbXDP2pArc2C1N1RRMN0ONiShoSsIInMd5Gsxupe7fKLpgimTV+HOJ9r7bA+pg==}
+  marked@15.0.7:
+    resolution: {integrity: sha512-dgLIeKGLx5FwziAnsk4ONoGwHwGPJzselimvlVskE9XLN4Orv9u2VA3GWw/lYUqjfA0rUT/6fqKwfZJapP9BEg==}
     engines: {node: '>= 18'}
     hasBin: true
 
@@ -6726,12 +6726,12 @@ snapshots:
       libmime: 5.3.6
       libqp: 2.1.1
 
-  marked-katex-extension@5.1.4(katex@0.16.21)(marked@15.0.6):
+  marked-katex-extension@5.1.4(katex@0.16.21)(marked@15.0.7):
     dependencies:
       katex: 0.16.21
-      marked: 15.0.6
+      marked: 15.0.7
 
-  marked@15.0.6: {}
+  marked@15.0.7: {}
 
   math-intrinsics@1.1.0: {}
 
