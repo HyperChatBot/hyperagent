@@ -1,10 +1,11 @@
+import '@/app/globals.css'
 import { AppSidebar } from '@/components/app-sidebar'
 import Header from '@/components/header'
 import { ThemeProvider } from '@/components/theme-provider'
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
+import { SessionProvider } from 'next-auth/react'
 import { Geist, Geist_Mono } from 'next/font/google'
-import './globals.css'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -18,8 +19,14 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: 'Hyper Agent',
-  description: 'Advanced AI agent using your own data and API.',
-  viewport: 'width=device-width, initial-scale=1.0'
+  description: 'Advanced AI agent using your own data and API.'
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false
 }
 
 export default function RootLayout({
@@ -38,13 +45,15 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <SidebarProvider>
-            <AppSidebar />
-            <SidebarInset>
-              <Header />
-              <div className="w-full flex-1">{children}</div>
-            </SidebarInset>
-          </SidebarProvider>
+          <SessionProvider>
+            <SidebarProvider>
+              <AppSidebar />
+              <SidebarInset>
+                <Header />
+                <div className="w-full flex-1">{children}</div>
+              </SidebarInset>
+            </SidebarProvider>
+          </SessionProvider>
         </ThemeProvider>
       </body>
     </html>
