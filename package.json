@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier ./.prettierrc -w ./src"
+    "format": "prettier ./.prettierrc -w ./"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^1.1.5",

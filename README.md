@@ -26,19 +26,19 @@ An advanced AI agent that utilizes your own knowledge bases and APIs.
 
 1. Create `.env` file with the follows in the root directory:
 
-    ```bash
-    DATABASE_URL=postgresql://tennoheika:jinping8964@localhost:5432/blog
+   ```bash
+   DATABASE_URL=postgresql://tennoheika:jinping8964@localhost:5432/blog
 
-    EMAIL_ADDRESS=<YOUR_GMAIL_ADDRESS>
-    EMAIL_PASSWORD=<YOUR_GMAIL_PASSWORD>
+   EMAIL_ADDRESS=<YOUR_GMAIL_ADDRESS>
+   EMAIL_PASSWORD=<YOUR_GMAIL_PASSWORD>
 
-    EXCHANGE_RATE_API_KEY=<YOUR_EXCHANGE_RATE_API_KEY> # https://openexchangerates.org/account/app-ids
+   EXCHANGE_RATE_API_KEY=<YOUR_EXCHANGE_RATE_API_KEY> # https://openexchangerates.org/account/app-ids
 
-    OPENAI_API_KEY=<YOUR_OPENAI_API_BASE_URL>
-    OPENAI_API_BASE_URL=<YOUR_OPENAI_API_BASE_URL>
+   OPENAI_API_KEY=<YOUR_OPENAI_API_BASE_URL>
+   OPENAI_API_BASE_URL=<YOUR_OPENAI_API_BASE_URL>
 
-    FIGMA_ACCESS_TOKEN=<YOUR_FIGMA_ACCESS_TOKEN>
-    ```
+   FIGMA_ACCESS_TOKEN=<YOUR_FIGMA_ACCESS_TOKEN>
+   ```
 
 2. Run `pnpm i` to install all dependencies.
 3. Run `pnpm run dev` to launch the [development server](http://localhost:3000).
@@ -49,47 +49,47 @@ An advanced AI agent that utilizes your own knowledge bases and APIs.
 
 1. **Start the pgvector container**: Navigate to the root directory of your project and run:
 
-    ```bash
-    docker compose up -d
-    ```
+   ```bash
+   docker compose up -d
+   ```
 
-    This command boots a Docker container running [pgvector](https://github.com/pgvector/pgvector).
+   This command boots a Docker container running [pgvector](https://github.com/pgvector/pgvector).
 
-2. **Access the container's terminal**:  Execute the following command, replacing `<CONTAINER_ID_OF_PGVECTOR_DB>` with the actual ID of your pgvector container:
+2. **Access the container's terminal**: Execute the following command, replacing `<CONTAINER_ID_OF_PGVECTOR_DB>` with the actual ID of your pgvector container:
 
-    ```bash
-    docker exec -it <CONTAINER_ID_OF_PGVECTOR_DB> bash
-    ```
+   ```bash
+   docker exec -it <CONTAINER_ID_OF_PGVECTOR_DB> bash
+   ```
 
-    You can find the container ID using `docker ps`.
+   You can find the container ID using `docker ps`.
 
 3. **Connect to the `blog` database**: Inside the container's terminal, connect to your database using `psql`:
 
-    ```bash
-    psql -U tennoheika -h localhost blog
-    ```
+   ```bash
+   psql -U tennoheika -h localhost blog
+   ```
 
-4. **Enable the `vector` extension**:  Run the following SQL command to enable vector support in your database:
+4. **Enable the `vector` extension**: Run the following SQL command to enable vector support in your database:
 
-    ```sql
-    CREATE EXTENSION vector;
-    ```
+   ```sql
+   CREATE EXTENSION vector;
+   ```
 
 5. **Create database tables**: In your project's root directory, apply database migrations using Drizzle Kit:
 
-    ```bash
-    npx drizzle-kit push
-    ```
+   ```bash
+   npx drizzle-kit push
+   ```
 
-    This command creates the `posts` and `embeddings` tables within the `blog` database.
+   This command creates the `posts` and `embeddings` tables within the `blog` database.
 
 6. **Import sample data**: Return to the container's terminal and execute the following commands to import data from the provided CSV files:
 
-    ```sql
-    COPY posts FROM '/sample-data/posts.csv' WITH (FORMAT CSV, HEADER, DELIMITER ',', QUOTE '"', ESCAPE '\');
+   ```sql
+   COPY posts FROM '/sample-data/posts.csv' WITH (FORMAT CSV, HEADER, DELIMITER ',', QUOTE '"', ESCAPE '\');
 
-    COPY embeddings FROM '/sample-data/embeddings.csv' WITH (FORMAT CSV, HEADER, DELIMITER ',', QUOTE '"', ESCAPE '\');
-    ```
+   COPY embeddings FROM '/sample-data/embeddings.csv' WITH (FORMAT CSV, HEADER, DELIMITER ',', QUOTE '"', ESCAPE '\');
+   ```
 
 ## Contributing
 
