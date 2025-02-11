@@ -1,6 +1,6 @@
 'use client'
 
-import '@/assets/css/markdown-code.css'
+import '@/public/css/markdown-code.css'
 import hljs from 'highlight.js'
 import { Check, Copy } from 'lucide-react'
 import { Marked, Renderer, Tokens } from 'marked'

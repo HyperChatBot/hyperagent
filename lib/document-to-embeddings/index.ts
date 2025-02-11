@@ -1,6 +1,6 @@
 'use server'
 
-import { findRelevantContent, storeEmbeddings } from './db-io'
+import { findRelevantContent, storeEmbeddingsToDb } from './db-io'
 import { Embedding, generateEmbedding, generateEmbeddings } from './embeddings'
 import { loadPDF } from './loaders'
 import {
@@ -15,7 +15,7 @@ export {
   generateEmbedding,
   generateEmbeddings,
   loadPDF,
-  storeEmbeddings
+  storeEmbeddingsToDb
 }
 
 export type { Embedding }

@@ -3,7 +3,7 @@ import { db } from '../db'
 import { embeddings as embeddingsTable } from '../db/schema/embeddings'
 import { Embedding, generateEmbedding } from './embeddings'
 
-export const storeEmbeddings = async (embeddings: Embedding[]) => {
+export const storeEmbeddingsToDb = async (embeddings: Embedding[]) => {
   await db.insert(embeddingsTable).values(embeddings)
 }
 

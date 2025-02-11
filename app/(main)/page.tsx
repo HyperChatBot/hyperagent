@@ -16,7 +16,6 @@ export default function Chat() {
     input,
     handleInputChange,
     handleSubmit,
-    addToolResult,
     error,
     reload,
     isLoading
@@ -67,8 +66,6 @@ export default function Chat() {
                         {message.toolInvocations.map(
                           (toolInvocation: ToolInvocation) => {
                             const toolCallId = toolInvocation.toolCallId
-                            const addResult = (result: string) =>
-                              addToolResult({ toolCallId, result })
                             const CallingTool =
                               callingToolsRenders[toolInvocation.toolName]
 

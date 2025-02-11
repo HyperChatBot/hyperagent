@@ -1,7 +1,18 @@
+import NextBundleAnalyzer from '@next/bundle-analyzer'
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  experimental: {
+    turbo: {
+      // ...
+    }
+  }
 }
 
-export default nextConfig
+const withBundleAnalyzer = NextBundleAnalyzer({
+  enabled: true
+})
+
+export default process.env.ANALYZE === 'true'
+  ? withBundleAnalyzer(nextConfig)
+  : nextConfig

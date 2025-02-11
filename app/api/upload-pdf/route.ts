@@ -1,10 +1,10 @@
-import { NextResponse } from 'next/server'
 import {
   generateChunksByRecursiveCharacterTextSplitter,
   generateEmbeddings,
   loadPDF,
-  storeEmbeddings
-} from '../../../lib/document-to-embedding'
+  storeEmbeddingsToDb
+} from '@/lib/document-to-embeddings'
+import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
   const formData = await req.formData()
@@ -14,7 +14,7 @@ export async function POST(req: Request) {
   const embeddings = await generateEmbeddings(
     chunks.map((chunk) => chunk.pageContent)
   )
-  await storeEmbeddings(embeddings)
+  await storeEmbeddingsToDb(embeddings)
 
   return NextResponse.json({
     success: true
