@@ -1,13 +1,7 @@
 import NextBundleAnalyzer from '@next/bundle-analyzer'
 import type { NextConfig } from 'next'
 
-const nextConfig: NextConfig = {
-  experimental: {
-    turbo: {
-      // ...
-    }
-  }
-}
+const nextConfig: NextConfig = {}
 
 const withBundleAnalyzer = NextBundleAnalyzer({
   enabled: true
