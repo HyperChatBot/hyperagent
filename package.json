@@ -15,7 +15,7 @@
     "@ai-sdk/google": "^1.1.10",
     "@ai-sdk/openai": "^1.1.5",
     "@langchain/community": "^0.3.29",
-    "@langchain/core": "^0.3.38",
+    "@langchain/core": "^0.3.39",
     "@langchain/textsplitters": "^0.1.0",
     "@next/bundle-analyzer": "^15.1.7",
     "@next/third-parties": "^15.1.7",
