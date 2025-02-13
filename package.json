@@ -41,7 +41,7 @@
     "immer": "^10.1.1",
     "import-in-the-middle": "^1.13.0",
     "jotai": "^2.11.2",
-    "lucide-react": "^0.474.0",
+    "lucide-react": "^0.475.0",
     "mailparser": "^3.7.2",
     "marked": "^15.0.6",
     "marked-katex-extension": "^5.1.4",
