@@ -1,17 +1,17 @@
-import { ToolInvocation } from 'ai'
+import { ToolInvocation } from 'ai';
 
 export enum ThemeMode {
   Light = 'light',
   Dark = 'dark',
-  System = 'system'
+  System = 'system',
 }
 
 export interface CallingToolProps {
-  toolInvocation: ToolInvocation
+  toolInvocation: ToolInvocation;
 }
 
 export interface OnImapFlowExists {
-  path: string
-  count: number
-  prevCount: number
+  path: string;
+  count: number;
+  prevCount: number;
 }

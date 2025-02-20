@@ -1,44 +1,66 @@
-import { WebVitals } from '@/app/_components/web-vitals'
-import { GOOGLE_ANALYTICS_ID } from '@/lib/constants'
-import '@/public/css/globals.css'
-import { GoogleAnalytics } from '@next/third-parties/google'
-import type { Metadata, Viewport } from 'next'
-import { SessionProvider } from 'next-auth/react'
-import { ThemeProvider } from 'next-themes'
-import { Geist, Geist_Mono } from 'next/font/google'
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin']
-})
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin']
-})
+import type { Metadata, Viewport } from 'next';
+import { Toaster } from 'sonner';
+import { GOOGLE_ANALYTICS_ID } from '@/lib/constants';
+import { GoogleAnalytics } from '@next/third-parties/google';
+import { ThemeProvider } from '@/components/theme-provider';
+import './globals.css';
+import { WebVitals } from './_components/web-vitals';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://hyperagent.yancey.app'),
   title: 'Hyper Agent',
-  description: 'Advanced AI agent using your own data and API.'
-}
+  description: 'Advanced AI agent using your own data and API.',
+};
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
-  userScalable: false
-}
+  userScalable: false,
+};
 
-export default function RootLayout({
-  children
+const LIGHT_THEME_COLOR = 'hsl(0 0% 100%)';
+const DARK_THEME_COLOR = 'hsl(240deg 10% 3.92%)';
+const THEME_COLOR_SCRIPT = `\
+(function() {
+  var html = document.documentElement;
+  var meta = document.querySelector('meta[name="theme-color"]');
+  if (!meta) {
+    meta = document.createElement('meta');
+    meta.setAttribute('name', 'theme-color');
+    document.head.appendChild(meta);
+  }
+  function updateThemeColor() {
+    var isDark = html.classList.contains('dark');
+    meta.setAttribute('content', isDark ? '${DARK_THEME_COLOR}' : '${LIGHT_THEME_COLOR}');
+  }
+  var observer = new MutationObserver(updateThemeColor);
+  observer.observe(html, { attributes: true, attributeFilter: ['class'] });
+  updateThemeColor();
+})();`;
+
+export default async function RootLayout({
+  children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html
+      lang="en"
+      // `next-themes` injects an extra classname to the body element to avoid
+      // visual flicker before hydration. Hence the `suppressHydrationWarning`
+      // prop is necessary to avoid the React hydration mismatch warning.
+      // https://github.com/pacocoursey/next-themes?tab=readme-ov-file#with-app
+      suppressHydrationWarning
+    >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: THEME_COLOR_SCRIPT,
+          }}
+        />
+      </head>
+      <body className="antialiased">
         <WebVitals />
         <GoogleAnalytics gaId={GOOGLE_ANALYTICS_ID} />
         <ThemeProvider
@@ -47,9 +69,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <SessionProvider>{children}</SessionProvider>
+          <Toaster position="top-center" />
+          {children}
         </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }

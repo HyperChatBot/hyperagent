@@ -24,23 +24,8 @@ An advanced AI agent that utilizes your own knowledge bases and APIs.
 
 ## To start developing Hyper Agent
 
-1. Create `.env` file with the follows in the root directory:
-
-   ```bash
-   DATABASE_URL=postgresql://tennoheika:jinping8964@localhost:5432/blog
-
-   EMAIL_ADDRESS=<YOUR_GMAIL_ADDRESS>
-   EMAIL_PASSWORD=<YOUR_GMAIL_PASSWORD>
-
-   EXCHANGE_RATE_API_KEY=<YOUR_EXCHANGE_RATE_API_KEY> # https://openexchangerates.org/account/app-ids
-
-   OPENAI_API_KEY=<YOUR_OPENAI_API_BASE_URL>
-   OPENAI_API_BASE_URL=<YOUR_OPENAI_API_BASE_URL>
-
-   FIGMA_ACCESS_TOKEN=<YOUR_FIGMA_ACCESS_TOKEN>
-   ```
-
-2. Run `pnpm i` to install all dependencies.
+1. Fill in `.env.example` and rename it as `.env` file in the root directory;
+2. Run `pnpm i` to install all dependencies;
 3. Run `pnpm run dev` to launch the [development server](http://localhost:3000).
 
 ### Setting up pgvector and Importing Sample Data
@@ -63,10 +48,10 @@ An advanced AI agent that utilizes your own knowledge bases and APIs.
 
    You can find the container ID using `docker ps`.
 
-3. **Connect to the `blog` database**: Inside the container's terminal, connect to your database using `psql`:
+3. **Connect to the `hyperagent` database**: Inside the container's terminal, connect to your database using `psql`:
 
    ```bash
-   psql -U tennoheika -h localhost blog
+   psql -U tennoheika -h localhost hyperagent
    ```
 
 4. **Enable the `vector` extension**: Run the following SQL command to enable vector support in your database:
@@ -81,7 +66,7 @@ An advanced AI agent that utilizes your own knowledge bases and APIs.
    npx drizzle-kit push
    ```
 
-   This command creates the `posts` and `embeddings` tables within the `blog` database.
+   This command creates the `posts` and `embeddings` tables within the `hyperagent` database.
 
 6. **Import sample data**: Return to the container's terminal and execute the following commands to import data from the provided CSV files:
 

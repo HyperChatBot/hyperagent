@@ -1,160 +1,67 @@
-'use client'
+'use client';
 
-import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
-  Command,
-  GalleryVerticalEnd,
-  Hammer,
-  Mail,
-  Settings2
-} from 'lucide-react'
-import * as React from 'react'
+import type { User } from 'next-auth';
+import { useRouter } from 'next/navigation';
 
-import { useSession } from 'next-auth/react'
-import { NavMain } from './nav-main'
-import { NavProjects } from './nav-projects'
-import { NavUser } from './nav-user'
-import { TeamSwitcher } from './team-switcher'
+import { PlusIcon } from '@/components/icons';
+import { SidebarHistory } from '@/components/sidebar-history';
+import { SidebarUserNav } from '@/components/sidebar-user-nav';
+import { Button } from '@/components/ui/button';
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarRail
-} from './ui/sidebar'
+  SidebarMenu,
+  useSidebar,
+} from '@/components/ui/sidebar';
+import Link from 'next/link';
+import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 
-// This is sample data.
-const data = {
-  user: {
-    name: 'Yancey Leo',
-    email: 'yanceyofficial@gmail.com',
-    avatar: 'https://avatars.githubusercontent.com/u/30535332?v=4'
-  },
-  teams: [
-    {
-      name: 'Yancey Inc.',
-      logo: GalleryVerticalEnd,
-      plan: 'Enterprise'
-    },
-    {
-      name: 'Apple Inc.',
-      logo: AudioWaveform,
-      plan: 'Startup'
-    },
-    {
-      name: 'Microsoft Corp.',
-      logo: Command,
-      plan: 'Free'
-    }
-  ],
-  navMain: [
-    {
-      title: 'Available Calling Tools',
-      url: '#',
-      icon: Hammer,
-      isActive: true,
-      items: [
-        {
-          title: 'GetDate',
-          url: '#'
-        },
-        {
-          title: 'GetExchangeRate',
-          url: '#'
-        },
-        {
-          title: 'GetInformationFromKnowledgeBase',
-          url: '#'
-        },
-        {
-          title: 'GetWeather',
-          url: '#'
-        }
-      ]
-    },
-    {
-      title: 'Documentation',
-      url: '#',
-      icon: BookOpen,
-      items: [
-        {
-          title: 'Chat Bot',
-          url: '#'
-        },
-        {
-          title: 'Calling Tools',
-          url: '#'
-        },
-        {
-          title: 'RAG',
-          url: '#'
-        },
-        {
-          title: 'AI Agent',
-          url: '#'
-        },
-        {
-          title: 'AI Orchestration',
-          url: '#'
-        }
-      ]
-    },
-    {
-      title: 'Settings',
-      url: '#',
-      icon: Settings2,
-      items: [
-        {
-          title: 'General',
-          url: '#'
-        },
-        {
-          title: 'Team',
-          url: '#'
-        },
-        {
-          title: 'Billing',
-          url: '#'
-        },
-        {
-          title: 'Limits',
-          url: '#'
-        }
-      ]
-    }
-  ],
-  projects: [
-    {
-      name: 'Chat Bot',
-      url: '/',
-      icon: Bot
-    },
-    {
-      name: 'AI Mail',
-      url: '/ai-mail',
-      icon: Mail
-    }
-  ]
-}
-
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { data: session } = useSession()
+export function AppSidebar({ user }: { user: User | undefined }) {
+  const router = useRouter();
+  const { setOpenMobile } = useSidebar();
 
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar className="group-data-[side=left]:border-r-0">
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <SidebarMenu>
+          <div className="flex flex-row justify-between items-center">
+            <Link
+              href="/"
+              onClick={() => {
+                setOpenMobile(false);
+              }}
+              className="flex flex-row gap-3 items-center"
+            >
+              <span className="text-lg font-semibold px-2 hover:bg-muted rounded-md cursor-pointer">
+                Chatbot
+              </span>
+            </Link>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  type="button"
+                  className="p-2 h-fit"
+                  onClick={() => {
+                    setOpenMobile(false);
+                    router.push('/');
+                    router.refresh();
+                  }}
+                >
+                  <PlusIcon />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent align="end">New Chat</TooltipContent>
+            </Tooltip>
+          </div>
+        </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        <SidebarHistory user={user} />
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser user={session?.user} />
-      </SidebarFooter>
-      <SidebarRail />
+      <SidebarFooter>{user && <SidebarUserNav user={user} />}</SidebarFooter>
     </Sidebar>
-  )
+  );
 }

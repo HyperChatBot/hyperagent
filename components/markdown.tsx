@@ -1,108 +1,109 @@
-'use client'
+import Link from 'next/link';
+import React, { memo } from 'react';
+import ReactMarkdown, { type Components } from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import { CodeBlock } from './code-block';
 
-import '@/public/css/markdown-code.css'
-import hljs from 'highlight.js'
-import { Check, Copy } from 'lucide-react'
-import { Marked, Renderer, Tokens } from 'marked'
-import markedKatex from 'marked-katex-extension'
-import { FC, memo, useCallback, useState } from 'react'
-import { renderToString } from 'react-dom/server'
+const components: Partial<Components> = {
+  // @ts-expect-error
+  code: CodeBlock,
+  pre: ({ children }) => <>{children}</>,
+  ol: ({ node, children, ...props }) => {
+    return (
+      <ol className="list-decimal list-outside ml-4" {...props}>
+        {children}
+      </ol>
+    );
+  },
+  li: ({ node, children, ...props }) => {
+    return (
+      <li className="py-1" {...props}>
+        {children}
+      </li>
+    );
+  },
+  ul: ({ node, children, ...props }) => {
+    return (
+      <ul className="list-decimal list-outside ml-4" {...props}>
+        {children}
+      </ul>
+    );
+  },
+  strong: ({ node, children, ...props }) => {
+    return (
+      <span className="font-semibold" {...props}>
+        {children}
+      </span>
+    );
+  },
+  a: ({ node, children, ...props }) => {
+    return (
+      // @ts-expect-error
+      <Link
+        className="text-blue-500 hover:underline"
+        target="_blank"
+        rel="noreferrer"
+        {...props}
+      >
+        {children}
+      </Link>
+    );
+  },
+  h1: ({ node, children, ...props }) => {
+    return (
+      <h1 className="text-3xl font-semibold mt-6 mb-2" {...props}>
+        {children}
+      </h1>
+    );
+  },
+  h2: ({ node, children, ...props }) => {
+    return (
+      <h2 className="text-2xl font-semibold mt-6 mb-2" {...props}>
+        {children}
+      </h2>
+    );
+  },
+  h3: ({ node, children, ...props }) => {
+    return (
+      <h3 className="text-xl font-semibold mt-6 mb-2" {...props}>
+        {children}
+      </h3>
+    );
+  },
+  h4: ({ node, children, ...props }) => {
+    return (
+      <h4 className="text-lg font-semibold mt-6 mb-2" {...props}>
+        {children}
+      </h4>
+    );
+  },
+  h5: ({ node, children, ...props }) => {
+    return (
+      <h5 className="text-base font-semibold mt-6 mb-2" {...props}>
+        {children}
+      </h5>
+    );
+  },
+  h6: ({ node, children, ...props }) => {
+    return (
+      <h6 className="text-sm font-semibold mt-6 mb-2" {...props}>
+        {children}
+      </h6>
+    );
+  },
+};
 
-interface Props {
-  src: string
-}
+const remarkPlugins = [remarkGfm];
 
-const CodeBlockHeader: FC<{ language: string; code: string }> = ({
-  language,
-  code
-}) => {
-  const [isCopied, setIsCopied] = useState(false)
-
-  const copyToClipboard = () => {
-    if (isCopied) return
-
-    window.navigator.clipboard
-      .writeText(code)
-      .then(() => {
-        setIsCopied(true)
-
-        setTimeout(() => {
-          setIsCopied(false)
-        }, 2000)
-      })
-      .catch((err) => {
-        console.error('Error copying code: ', err)
-      })
-  }
-
+const NonMemoizedMarkdown = ({ children }: { children: string }) => {
   return (
-    <div className="hljs mb-px mt-4 flex select-none items-center justify-between rounded-t-md px-4 py-2 text-xs">
-      <span>{language}</span>
-      <div className="cursor-pointer">
-        <div>
-          <div
-            className="flex items-center gap-1"
-            onClick={() => copyToClipboard()}
-          >
-            {isCopied ? (
-              <Check height={12} width={12} />
-            ) : (
-              <Copy height={12} width={12} />
-            )}
-            <span>{isCopied ? 'Copied' : 'Copy'}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
+    <ReactMarkdown remarkPlugins={remarkPlugins} components={components}>
+      {children}
+    </ReactMarkdown>
+  );
+};
 
-const Markdown: FC<Props> = ({ src }) => {
-  const parseMarkdown = useCallback(() => {
-    const renderer = new Renderer()
-
-    renderer.code = ({ text, lang }: Tokens.Code) => {
-      const language = (lang && lang.split(/\s/)[0]) ?? 'javascript'
-
-      const highlighted =
-        language && hljs.getLanguage(language)
-          ? hljs.highlight(text, { language: language }).value
-          : hljs.highlightAuto(text).value
-
-      return `${renderToString(<CodeBlockHeader language={language} code={text} />)} <pre class="hljs mb-4 p-4 rounded-b-md overflow-x-scroll text-xs last:my-0"><code class="${language}">${highlighted}</code></pre>`
-    }
-
-    renderer.codespan = ({ text }: Tokens.Codespan) =>
-      `<code class="px-0.5 py-[0.0625rem] bg-border rounded-md ">${text}</code>`
-
-    renderer.image = ({ text, href }: Tokens.Image) => {
-      return `<img src="${href}" alt="${text}" class="mb-3" loading="lazy" />`
-    }
-
-    renderer.link = ({ href, text }: Tokens.Link) => {
-      return `<a href="${href}" target="_blank" rel="noopener noreferrer" class="font-bold underline">${text}</a>`
-    }
-
-    const marked = new Marked({
-      renderer: {
-        ...renderer,
-        table(...args) {
-          return `<div class="overflow-x-scroll">${renderer.table.apply(this, args)}</div>`
-        }
-      }
-    })
-
-    marked.use(markedKatex())
-
-    return marked.parse(src)
-  }, [src])
-
-  return (
-    <section
-      className="markdown"
-      dangerouslySetInnerHTML={{ __html: parseMarkdown() }}
-    />
-  )
-}
-
-export default memo(Markdown)
+export const Markdown = memo(
+  NonMemoizedMarkdown,
+  (prevProps, nextProps) => prevProps.children === nextProps.children,
+);

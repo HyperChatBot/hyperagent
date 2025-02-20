@@ -1,4 +1,4 @@
-import { atom } from 'jotai'
-import { ThemeMode } from '../types'
+import { atom } from 'jotai';
+import { ThemeMode } from '../types';
 
-export const themeMode = atom(ThemeMode.System)
+export const themeMode = atom(ThemeMode.System);

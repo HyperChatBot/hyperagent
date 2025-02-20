@@ -1,12 +1,16 @@
-import NextBundleAnalyzer from '@next/bundle-analyzer'
-import type { NextConfig } from 'next'
+import type { NextConfig } from 'next';
 
-const nextConfig: NextConfig = {}
+const nextConfig: NextConfig = {
+  experimental: {
+    ppr: true,
+  },
+  images: {
+    remotePatterns: [
+      {
+        hostname: 'avatar.vercel.sh',
+      },
+    ],
+  },
+};
 
-const withBundleAnalyzer = NextBundleAnalyzer({
-  enabled: true
-})
-
-export default process.env.ANALYZE === 'true'
-  ? withBundleAnalyzer(nextConfig)
-  : nextConfig
+export default nextConfig;

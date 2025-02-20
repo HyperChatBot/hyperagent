@@ -1,12 +1,12 @@
 services:
   postgres:
     image: pgvector/pgvector:pg17
-    container_name: pgvector-db
+    container_name: hyperagent-pg
     environment:
       POSTGRES_USER: tennoheika
       POSTGRES_PASSWORD: jinping8964
-      POSTGRES_DB: blog
+      POSTGRES_DB: hyperagent
     ports:
       - '5432:5432'
     volumes:
-      - ./sample-data:/sample-data
+      - ./lib/db/data:/var/lib/postgresql/data
